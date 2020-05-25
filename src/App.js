@@ -10,28 +10,15 @@ import Controls from './Controls';
 import Styles from './Styles';
 import Input from './Input';
 import {View, Text, Button, SafeAreaView} from 'react-native';
+import {connect} from 'react-redux';
+import {
+  counterIncrement,
+  counterDecrement,
+  counterClear,
+  counterUpdate,
+} from './actions';
 
-export default class App extends Component {
-  state = {
-    count: 12,
-  };
-
-  onClear = () => {
-    this.setState({count: 0});
-  };
-
-  onMinus = () => {
-    this.setState({count: this.state.count - 1});
-  };
-
-  onPlus = () => {
-    this.setState({count: this.state.count + 1});
-  };
-
-  onChanged = countValue => {
-    this.setState({count: countValue});
-  };
-
+class App extends Component {
   render() {
     return (
       <SafeAreaView style={Styles.viewContainer}>
@@ -40,17 +27,28 @@ export default class App extends Component {
         </View>
         <View style={Styles.contentContainer}>
           <Input
-            value={this.state.count.toString()}
-            onChanged={this.onChanged}
+            value={this.props.count.toString()}
+            onChanged={this.props.counterUpdate}
           />
           <Controls
-            value={this.state.count}
-            onMinus={this.onMinus}
-            onPlus={this.onPlus}
+            value={this.props.count}
+            onMinus={this.props.counterDecrement}
+            onPlus={this.props.counterIncrement}
           />
-          <Button title="Clear" onPress={this.onClear} />
+          <Button title="Clear" onPress={this.props.counterClear} />
         </View>
       </SafeAreaView>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    count: state,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {counterIncrement, counterDecrement, counterClear, counterUpdate},
+)(App);
