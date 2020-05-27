@@ -5,12 +5,12 @@
 
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import Controls from './Controls';
 import Styles from './Styles';
 import Input from './Input';
 import {View, Text, Button, SafeAreaView} from 'react-native';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   counterIncrement,
   counterDecrement,
@@ -18,37 +18,29 @@ import {
   counterUpdate,
 } from './actions';
 
-class App extends Component {
-  render() {
-    return (
-      <SafeAreaView style={Styles.viewContainer}>
-        <View style={Styles.headlineContainer}>
-          <Text>Counter Application</Text>
-        </View>
-        <View style={Styles.contentContainer}>
-          <Input
-            value={this.props.count.toString()}
-            onChanged={this.props.counterUpdate}
-          />
-          <Controls
-            value={this.props.count}
-            onMinus={this.props.counterDecrement}
-            onPlus={this.props.counterIncrement}
-          />
-          <Button title="Clear" onPress={this.props.counterClear} />
-        </View>
-      </SafeAreaView>
-    );
-  }
-}
+export default (App = () => {
+  const count = useSelector(state => state);
+  const dispatch = useDispatch();
 
-const mapStateToProps = state => {
-  return {
-    count: state,
-  };
-};
+  const onCounterChanged = countValue => dispatch(counterUpdate(countValue));
+  const onCounterIncrement = () => dispatch(counterIncrement());
+  const onCounterDecrement = () => dispatch(counterDecrement());
+  const onCounterCleared = () => dispatch(counterClear());
 
-export default connect(
-  mapStateToProps,
-  {counterIncrement, counterDecrement, counterClear, counterUpdate},
-)(App);
+  return (
+    <SafeAreaView style={Styles.viewContainer}>
+      <View style={Styles.headlineContainer}>
+        <Text>Counter Application</Text>
+      </View>
+      <View style={Styles.contentContainer}>
+        <Input value={count.toString()} onChanged={onCounterChanged} />
+        <Controls
+          value={count}
+          onMinus={onCounterDecrement.bind()}
+          onPlus={onCounterIncrement.bind()}
+        />
+        <Button title="Clear" onPress={onCounterCleared} />
+      </View>
+    </SafeAreaView>
+  );
+});
