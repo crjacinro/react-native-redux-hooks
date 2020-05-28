@@ -1,12 +1,13 @@
 import React from 'react';
 import {TextInput} from 'react-native';
-import {counterUpdate} from './actions';
+import {actionUpdateCount} from './actions';
 import {useSelector, useDispatch} from 'react-redux';
 
 export default function Controls() {
   const count = useSelector(state => state);
   const dispatch = useDispatch();
-  const onCounterChanged = countValue => dispatch(counterUpdate(countValue));
+  const onCounterChanged = countValue =>
+    dispatch(actionUpdateCount(countValue));
 
   return (
     <TextInput

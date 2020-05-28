@@ -1,0 +1,6 @@
+// Format - VERB_STATE
+
+export const UPDATE_COUNT = 'UPDATE_COUNTER';
+export const INCREMENT_COUNT = 'INCREMENT_COUNT';
+export const DECREMENT_COUNT = 'DECREMENT_COUNT';
+export const CLEAR_COUNT = 'CLEAR_COUNT';

@@ -1,24 +1,31 @@
-export const counterIncrement = () => {
+import {
+  INCREMENT_COUNT,
+  DECREMENT_COUNT,
+  CLEAR_COUNT,
+  UPDATE_COUNT,
+} from './types';
+
+export const actionIncrementCount = () => {
   return {
-    type: 'INCREMENT',
+    type: INCREMENT_COUNT,
   };
 };
 
-export const counterDecrement = () => {
+export const actionDecrementCount = () => {
   return {
-    type: 'DECREMENT',
+    type: DECREMENT_COUNT,
   };
 };
 
-export const counterClear = () => {
+export const actionClearCount = () => {
   return {
-    type: 'CLEAR',
+    type: CLEAR_COUNT,
   };
 };
 
-export const counterUpdate = update => {
+export const actionUpdateCount = update => {
   return {
-    type: 'UPDATE',
+    type: UPDATE_COUNT,
     payload: update,
   };
 };

@@ -11,12 +11,12 @@ import Styles from './Styles';
 import Input from './Input';
 import {View, Text, Button, SafeAreaView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {counterClear} from './actions';
+import {actionClearCount} from './actions';
 
 export default (App = () => {
   const count = useSelector(state => state);
   const dispatch = useDispatch();
-  const onCounterCleared = () => dispatch(counterClear());
+  const onCounterCleared = () => dispatch(actionClearCount());
 
   return (
     <SafeAreaView style={Styles.viewContainer}>
