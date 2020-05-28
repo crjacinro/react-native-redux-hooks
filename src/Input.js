@@ -4,7 +4,7 @@ import {actionUpdateCount} from './actions';
 import {useSelector, useDispatch} from 'react-redux';
 
 export default function Controls() {
-  const count = useSelector(state => state);
+  const count = useSelector(state => state.count);
   const dispatch = useDispatch();
   const onCounterChanged = countValue =>
     dispatch(actionUpdateCount(countValue));

@@ -14,7 +14,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {actionClearCount} from './actions';
 
 export default (App = () => {
-  const count = useSelector(state => state);
+  const count = useSelector(state => state.count);
+  const message = useSelector(state => state.hello.helloText);
   const dispatch = useDispatch();
   const onCounterCleared = () => dispatch(actionClearCount());
 
@@ -27,6 +28,7 @@ export default (App = () => {
         <Input />
         <Controls />
         <Button title="Clear" onPress={onCounterCleared} />
+        <Text>{message}</Text>
       </View>
     </SafeAreaView>
   );
